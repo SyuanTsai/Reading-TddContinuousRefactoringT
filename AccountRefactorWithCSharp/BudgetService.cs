@@ -20,6 +20,8 @@ public class BudgetService
         if (start.ToString("yyyyMM") != end.ToString("yyyyMM"))
         {
             var temp = start.AddMonths(1);
+            // Code Smell Bad Name ; 
+            // 變數雖然在整個迴圈中都會使用，但是真的用道的情境卻是在計算「當月」的時候才會用到。
             var nextMonthFirst = new DateTime(temp.Year, temp.Month, 1);
             var sum = 0;
             while (nextMonthFirst < new DateTime(end.Year, end.Month, 1))
