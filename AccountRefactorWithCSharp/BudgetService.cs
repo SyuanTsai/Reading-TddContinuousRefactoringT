@@ -14,13 +14,10 @@ public class BudgetService
     {
         var budgets = _budgetRepo.GetAll();
 
-        // Refactor Inline Variable 
-        var startYearMonth = start.ToString("yyyyMM");
-        var endYearMonth = end.ToString("yyyyMM");
         var startMonthDays = DateTime.DaysInMonth(start.Year, start.Month);
         var endMonthDays = DateTime.DaysInMonth(end.Year, end.Month);
 
-        if (startYearMonth != endYearMonth)
+        if (start.ToString("yyyyMM") != end.ToString("yyyyMM"))
         {
             var temp = start.AddMonths(1);
             var nextMonthFirst = new DateTime(temp.Year, temp.Month, 1);
@@ -32,8 +29,8 @@ public class BudgetService
                 nextMonthFirst = nextMonthFirst.AddMonths(1);
             }
 
-            var startBudget = GetBudget(budgets, startYearMonth);
-            var endBudget = GetBudget(budgets, endYearMonth);
+            var startBudget = GetBudget(budgets, start.ToString("yyyyMM"));
+            var endBudget = GetBudget(budgets, end.ToString("yyyyMM"));
 
             var startBudgetPerDay = startBudget?.Amount / startMonthDays ?? 0;
             var endBudgetPerDay = endBudget?.Amount / endMonthDays ?? 0;
@@ -42,7 +39,7 @@ public class BudgetService
             return sum;
         }
 
-        var oneMonthBudget = GetBudget(budgets, startYearMonth);
+        var oneMonthBudget = GetBudget(budgets, start.ToString("yyyyMM"));
         if (oneMonthBudget == null) return 0;
 
         var amount = oneMonthBudget.Amount;
