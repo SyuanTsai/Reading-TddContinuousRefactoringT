@@ -20,9 +20,8 @@ public class BudgetService
         if (start.ToString("yyyyMM") != end.ToString("yyyyMM"))
         {
             // Temporary Variable
-            // 從變數名稱很直觀了解到只是一個暫存變數；透過暫時拿掉變數可以看到使用的地方只有一個。
-            // var temp = start.AddMonths(1);
-            var currentMonth = new DateTime(temp.Year, temp.Month, 1);
+            // 透過方法的改寫，我們將 temp 等義寫法。
+            var currentMonth = new DateTime(start.Year, start.Month, 1).AddMonths(1);
             var sum = 0;
             while (currentMonth < new DateTime(end.Year, end.Month, 1))
             {
