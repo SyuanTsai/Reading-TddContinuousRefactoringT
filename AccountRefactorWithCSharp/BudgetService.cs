@@ -31,7 +31,10 @@ public class BudgetService
                 currentMonth = currentMonth.AddMonths(1);
             }
 
-            var startBudget = GetBudget(budgets, start.ToString("yyyyMM"));
+            // 相同的變數，應該放在一起，才能夠透過IDE來做重構動作
+            // 如果在StartBudget中穿插了EndBudget，有可能會導致無法重構，
+            // 同時也會凸顯不了重複的壞味道。
+            //var startBudget = GetBudget(budgets, start.ToString("yyyyMM"));
             var endBudget = GetBudget(budgets, end.ToString("yyyyMM"));
 
             var startBudgetPerDay = startBudget?.Amount / startMonthDays ?? 0;
