@@ -1,5 +1,4 @@
-﻿
-namespace AccountRefactorWithCSharp;
+﻿namespace AccountRefactorWithCSharp;
 
 public class BudgetService
 {
@@ -19,14 +18,16 @@ public class BudgetService
 
         if (start.ToString("yyyyMM") != end.ToString("yyyyMM"))
         {
-            // Temporary Variable
-            // 透過方法的改寫，我們將 temp 等義寫法。
             var currentMonth = new DateTime(start.Year, start.Month, 1).AddMonths(1);
             var sum = 0;
             while (currentMonth < new DateTime(end.Year, end.Month, 1))
             {
                 var budget = GetBudget(budgets, $"{currentMonth:yyyyMM}");
-                if (budget != null) sum += budget.Amount;
+                if (budget != null)
+                {
+                    sum += budget.Amount;
+                }
+
                 currentMonth = currentMonth.AddMonths(1);
             }
 
